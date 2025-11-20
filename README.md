@@ -177,7 +177,7 @@ http://localhost:3000
 
 * **Fatima Ezzahra Boulouiz**
 * **Yasmine Ait Houssa**
-* **ahmed elhiba **
+* **ahmed elhiba**
 
 ---
 
