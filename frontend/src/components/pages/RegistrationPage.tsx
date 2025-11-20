@@ -19,13 +19,46 @@ export function RegistrationPage({ navigate }: RegistrationPageProps) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle registration logic here
-    console.log({ nom, prenom, email, matricule, filiere, password });
-    // Redirect to login after successful registration
-    navigate('login');
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (password !== confirmPassword) {
+    alert("Les mots de passe ne correspondent pas.");
+    return;
+  }
+
+  const studentData = {
+    nom,
+    prenom,
+    email,
+    matricule,
+    filiere,
+    motDePasse: password,
   };
+
+  try {
+    const res = await fetch("http://localhost:8081/api/etudiants/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(studentData),
+    });
+
+    if (!res.ok) throw new Error("Erreur lors de l'inscription");
+
+    const result = await res.json();
+
+    // Save user + token like login
+    localStorage.setItem("user", JSON.stringify(result.user));
+    localStorage.setItem("token", result.token);
+
+    // Redirect to student dashboard
+    navigate("dashboard-etudiant");
+
+  } catch (err) {
+    console.error(err);
+    alert("Une erreur est survenue lors de l'inscription");
+  }
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">

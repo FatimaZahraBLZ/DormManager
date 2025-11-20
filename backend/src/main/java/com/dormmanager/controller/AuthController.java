@@ -23,7 +23,7 @@ public class AuthController {
     }
 
     // 🔹 Simple in-memory token store (for demo)
-    private final Map<String, String> activeTokens = new HashMap<>();
+    public static final Map<String, String> activeTokens = new HashMap<>();
 
 @PostMapping("/login")
 public ResponseEntity<?> login(@RequestBody LoginRequest request) {

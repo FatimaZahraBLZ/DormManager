@@ -9,10 +9,14 @@ package com.dormmanager.controller;
  * @author User
  */
 
+import com.dormmanager.controller.AuthController;
 import com.dormmanager.entity.Etudiant;
 import com.dormmanager.repository.EtudiantRepository;
 import org.springframework.web.bind.annotation.*;
-
+import com.dormmanager.entity.Utilisateur;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.UUID;
 import java.util.List;
 
 @RestController
@@ -25,6 +29,25 @@ public class EtudiantController {
     public EtudiantController(EtudiantRepository etudiantRepository) {
         this.etudiantRepository = etudiantRepository;
     }
+
+    @PostMapping("/register")
+    public Map<String, Object> registerEtudiant(@RequestBody Etudiant etudiant) {
+
+    etudiant.setRole(Utilisateur.Role.ETUDIANT);
+    Etudiant saved = etudiantRepository.save(etudiant);
+
+    // Generate a session token
+    String token = UUID.randomUUID().toString();
+
+    // IMPORTANT: Add the token to the same active token map used in AuthController
+    AuthController.activeTokens.put(token, saved.getEmail());
+
+    Map<String, Object> response = new HashMap<>();
+    response.put("user", saved);
+    response.put("token", token);
+
+    return response;
+}
 
     // ✅ Get all students
     @GetMapping
