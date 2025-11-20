@@ -1,7 +1,7 @@
 
-  # Mouse Cursor Sparkle Trail
+  # DormManager web app
 
-  This is a code bundle for Mouse Cursor Sparkle Trail. The original project is available at https://www.figma.com/design/0BBbyZB3lu585pMsPEmkyu/Mouse-Cursor-Sparkle-Trail.
+  This is a code bundle for DormManager web app. The original project is available at https://www.figma.com/design/0BBbyZB3lu585pMsPEmkyu/Mouse-Cursor-Sparkle-Trail.
 
   ## Running the code
 
